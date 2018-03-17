@@ -42,3 +42,5 @@ Lesson 2
 --set up routes for /threads
 --create view for threads index
 --php artisan make:auth --> we can use the default format from the files
+--split assertions into different tests so it's easier to debug which assertion caused the error
+--use path() over route(): if changes the paramater used to route, need to change the views as well.
