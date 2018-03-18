@@ -44,3 +44,25 @@ Lesson 2
 --php artisan make:auth --> we can use the default format from the files
 --split assertions into different tests so it's easier to debug which assertion caused the error
 --use path() over route(): if changes the paramater used to route, need to change the views as well.
+
+Lesson 3
+--One of the most time-consuming parts of writing tests is writing the code to set the world up in a known state and
+  then return it to its original state when the test is complete. This known state is called the fixture of the test.
+  Most of the time the fixture will be complex and the amount of code needed to set it up will grow accordingly. The
+  actual content of the test gets lost in the noise of setting up the fixture. This problem gets even worse when you
+  write several tests with similar fixtures. Without some help from the testing framework, we would have to duplicate
+  the code that sets up the fixture for each test we write.
+
+  PHPUnit supports sharing the setup code. Before a test method is run, a template method called setUp() is invoked.
+  setUp() is where you create the objects against which you will test. Once the test method has finished running,
+  whether it succeeded or failed, another template method called tearDown() is invoked. tearDown() is where you clean
+  up the objects against which you tested.
+--Use setUp() to create the thread fixture
+--set up test: a user can view replies associated with a thread
+--add view for replies to threads/show.blade
+--add relationship for thread and reply
+--create unit test for reply: php artisan make:test ReplyTest --unit
+  to ensure the relationship does exist: a reply has an owner
+  feature test-> from browser, user point of view, when the tests fail, it's hard to locate the error (lots of HTML)
+  unit test-> easier to locate error message
+ --add relationship for reply and owner(user)
