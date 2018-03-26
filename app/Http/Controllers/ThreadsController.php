@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use App\Channel;
-use App\User;
+use App\Filters\ThreadFilters;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -19,21 +19,15 @@ class ThreadsController extends Controller
         $this->middleware('auth')->except('index','show');
     }
 
-    public function index(Channel $channel)
+    public function index(Channel $channel, ThreadFilters $filters)
     {
-        if ($channel->exists){
-            $threads = $channel->threads()->orderBy('created_at');
-        } else{
-            $threads = Thread::orderBy('created_at');
-        }
+        $threads = Thread::orderBy('created_at')->filter($filters);
 
-        if ($username = request('by')){
-            $user = User::where('name', $username)->firstOrFail();
-            $threads->where('user_id', $user->id);
+        if ($channel->exists) {
+            $threads->where('channel_id', $channel->id);
         }
 
         $threads = $threads->get();
-
         return view('threads.index', compact('threads'));
     }
 
