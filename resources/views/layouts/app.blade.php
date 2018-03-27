@@ -13,6 +13,12 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <style>
+        body {padding-bottom: 100px;}
+        .level{display: flex; align-items: center;}
+        .flex{flex: 1;}
+    </style>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
@@ -35,27 +41,32 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
-                        <li><a class="nav-link" href="/threads">All Threads</a></li>
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Browse</a>
+
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="/threads">All Threads</a>
+
                                 @if (auth()->check())
                                     <a class="dropdown-item" href="/threads?by={{auth()->user()->name}}">My Threads</a>
                                 @endif
+
+                                <a class="dropdown-item" href="/threads?popular=1">Popular Threads</a>
                             </div>
+
                         </li>
 
                         <li><a class="nav-link" href="/threads/create">New Threads</a></li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Channels</a>
+
                             <div class="dropdown-menu">
                                 @foreach($channels as $channel)
                                 <a class="dropdown-item" href="/threads/{{$channel->slug}}">{{$channel->name}}</a>
                                 @endforeach
                             </div>
+
                         </li>
 
                     </ul>
