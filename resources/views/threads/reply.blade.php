@@ -1,11 +1,10 @@
 <div class="card-header">
     <div class="level">
 
-        <h5 class="flex">
-            <a href="#">
-                {{$reply->owner->name}} said {{$reply->created_at->diffForHumans()}}...
-            </a>
-        </h5>
+        <h6 class="flex">
+            <a href={{route('profile', $reply->owner->name)}}>{{$reply->owner->name}}</a>
+            said {{$reply->created_at->diffForHumans()}}...
+        </h6>
 
         <div>
             <form method="POST" action="/replies/{{$reply->id}}/favorites">
