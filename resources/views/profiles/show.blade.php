@@ -2,40 +2,46 @@
 
 @section('content')
     <div class="container">
-        <div class="page-header">
-            <h1>
-                {{$profileUser->name}}
-                <small>Since {{ $profileUser->created_at->diffForHumans() }}</small>
-            </h1>
-        </div>
+        <div class="row">
+            <div class="col-md-8">
 
-        @foreach($threads as $thread)
-            <div class="card">
-                <div class="card-header">
+                <div class="page-header">
+                    <h1>
+                        {{$profileUser->name}}
+                        <small>Since {{ $profileUser->created_at->diffForHumans() }}</small>
+                    </h1>
+                </div>
 
-                    <div class="level">
+                @foreach($threads as $thread)
+                    <div class="card">
+                        <div class="card-header">
+
+                            <div class="level">
 
                         <span class="flex">
                             {{$thread->creator->name}} posted:
                             {{$thread->title}}
                         </span>
 
-                        <span>
+                                <span>
                             {{$thread->created_at->diffForHumans()}}
                         </span>
 
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                            {{$thread->body}}
+                        </div>
+
                     </div>
+                @endforeach
 
-                </div>
+                {{$threads->links()}}
 
-                <div class="card-body">
-                    {{$thread->body}}
-                </div>
 
             </div>
-        @endforeach
-
-        {{$threads->links()}}
-
+        </div>
     </div>
 @endsection
