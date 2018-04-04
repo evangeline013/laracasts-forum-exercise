@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class CreateThreadTest extends TestCase
 {
     use RefreshDatabase;
+
     /** @test */
     public function guests_cannot_create_threads()
     {
@@ -72,5 +73,38 @@ class CreateThreadTest extends TestCase
         $this->withExceptionHandling()->signIn();
         $thread = make('App\Thread', $overrides);
         return $this->post('/threads', $thread->toArray());
+    }
+
+    /** @test */
+    public function unauthorized_users_cannot_delete_threads()
+    {
+        $this->withExceptionHandling();
+        $thread = create('App\Thread');
+        $this->delete($thread->path())->assertRedirect('/login');
+
+        $this->signIn();
+        $this->delete($thread->path())->assertStatus(403);
+
+    }
+
+    /** @test */
+    public function threads_may_only_be_deleted_by_those_who_have_permission()
+    {
+
+    }
+
+    /** @test */
+    public function authorized_users_can_delete_threads()
+    {
+        $this->signIn();
+        $thread =  create('App\Thread', ['user_id' => auth()->id()]);
+        $reply = create('App\Reply', ['thread_id' => $thread->id]);
+
+        //submit a json request to proper endpoint
+        $response = $this->json('DELETE', $thread->path());
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+
     }
 }
