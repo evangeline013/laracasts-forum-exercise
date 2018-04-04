@@ -15,14 +15,14 @@
                                 posted: {{$thread->title}}
                             </h6>
 
-                            <div>
+                            @can('update', $thread)
                                 <form action="{{$thread->path()}}" method="POST">
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
 
                                     <button type="submit" class="btn btn-link">Delete Thread</button>
                                 </form>
-                            </div>
+                            @endcan
 
                         </div>
                     </div>

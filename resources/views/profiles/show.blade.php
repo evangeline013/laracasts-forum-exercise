@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 align-items-center">
 
                 <div class="page-header">
                     <h1>
@@ -17,16 +17,14 @@
                         <div class="card-header">
 
                             <div class="level">
-
-                        <span class="flex">
-                            {{$thread->creator->name}} posted:
-                            {{$thread->title}}
-                        </span>
+                                <span class="flex">
+                                    <a href="{{route('profile', $thread->creator)}}">{{$thread->creator->name}}</a> posted:
+                                    <a href="{{$thread->path()}}">{{$thread->title}}</a>
+                                </span>
 
                                 <span>
-                            {{$thread->created_at->diffForHumans()}}
-                        </span>
-
+                                    {{$thread->created_at->diffForHumans()}}
+                                </span>
                             </div>
 
                         </div>

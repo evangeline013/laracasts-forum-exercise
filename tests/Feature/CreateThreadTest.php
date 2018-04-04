@@ -76,12 +76,15 @@ class CreateThreadTest extends TestCase
     }
 
     /** @test */
-    public function guests_cannot_delete_threads()
+    public function unauthorized_users_cannot_delete_threads()
     {
         $this->withExceptionHandling();
         $thread = create('App\Thread');
-        $this->delete($thread->path())
-            ->assertRedirect('/login');
+        $this->delete($thread->path())->assertRedirect('/login');
+
+        $this->signIn();
+        $this->delete($thread->path())->assertStatus(403);
+
     }
 
     /** @test */
@@ -91,10 +94,10 @@ class CreateThreadTest extends TestCase
     }
 
     /** @test */
-    public function a_thread_can_be_deleted()
+    public function authorized_users_can_delete_threads()
     {
         $this->signIn();
-        $thread =  create('App\Thread');
+        $thread =  create('App\Thread', ['user_id' => auth()->id()]);
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
         //submit a json request to proper endpoint

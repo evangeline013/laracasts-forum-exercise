@@ -11,7 +11,7 @@
                     </div>
                 @endif
 
-                @foreach ($threads as $thread)
+                @forelse ($threads as $thread)
                     <div class="card">
 
                         <div class="card-header">
@@ -35,7 +35,9 @@
                         </div>
 
                     </div>
-                @endforeach
+                @empty
+                    <p>There are no relevant results at this time.</p>
+                @endforelse
 
             </div>
         </div>
