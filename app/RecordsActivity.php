@@ -5,6 +5,9 @@ namespace App;
 
 trait RecordsActivity
 {
+    /**
+     * Boot the trait
+     */
     protected static function bootRecordsActivity()
     {
         if (auth()->guest()) return;
@@ -14,13 +17,23 @@ trait RecordsActivity
                 $model->recordActivity($event);
             });
         }
+
+        static::deleting(function ($model){
+            $model->activity()->delete();
+        });
     }
 
+    /**
+     * Fetch all model events that require activity recording
+     */
     protected static function getActivitiesToRecord()
     {
         return['created'];
     }
 
+    /**
+     * Record new activity for the model
+     */
     protected function recordActivity($event)
     {
         $this->activity()->create([
@@ -29,11 +42,17 @@ trait RecordsActivity
         ]);
     }
 
+    /**
+     * Fetch the activity relationship
+     */
     public function activity()
     {
         return $this->morphMany('App\Activity', 'subject');
     }
 
+    /**
+     * Determine the activity type
+     */
     protected function getActivityType($event)
     {
         $type = strtolower((new \ReflectionClass($this))->getShortName());
