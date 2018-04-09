@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Laravel Forum</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -79,15 +79,23 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <a href="/threads">Laravel Forum</a>
                 </div>
 
+                <h3>This forum is built following along Jeffrey Way's course:
+                    <a class="links" href="https://laracasts.com/series/lets-build-a-forum-with-laravel">Let's Build A Forum with
+                    Laravel and TDD</a> on Laracasts.
+                </h3>
+
+                <br/>
+                <hr/>
+                <br/>
+
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
+                    <a href="https://laravel.com/docs">Laravel Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://github.com/laravel/laravel">GitHub - Laravel</a>
+                    <a href="https://github.com/evangeline013/laracasts-forum-exercise">Source Code</a>
                 </div>
             </div>
         </div>
