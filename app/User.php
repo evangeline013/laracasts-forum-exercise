@@ -37,4 +37,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Thread')->orderBy('created_at', 'desc');
     }
 
+    public function activity()
+    {
+        return $this->hasMany('App\Activity');
+    }
+
 }

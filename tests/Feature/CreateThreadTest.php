@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Activity;
 
 class CreateThreadTest extends TestCase
 {
@@ -88,12 +89,6 @@ class CreateThreadTest extends TestCase
     }
 
     /** @test */
-    public function threads_may_only_be_deleted_by_those_who_have_permission()
-    {
-
-    }
-
-    /** @test */
     public function authorized_users_can_delete_threads()
     {
         $this->signIn();
@@ -105,6 +100,8 @@ class CreateThreadTest extends TestCase
         $response->assertStatus(204);
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+
+        $this->assertEquals(0, Activity::count());
 
     }
 }
