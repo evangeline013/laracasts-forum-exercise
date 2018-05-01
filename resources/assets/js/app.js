@@ -16,6 +16,7 @@ require('./bootstrap');
  */
 
 Vue.component('flash', require('./components/Flash.vue')); //within HTML, we can use <flash>
+Vue.component('reply', require('./components/Reply.vue'));
 
 const app = new Vue({
     el: '#app'
