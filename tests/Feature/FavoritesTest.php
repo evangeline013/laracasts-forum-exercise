@@ -16,6 +16,7 @@ class FavoritesTest extends TestCase
             ->post('replies/1/favorites')
             ->assertRedirect('/login');
     }
+
     /** @test */
     public function an_authenticated_user_can_favorite_any_reply()
     {
@@ -26,6 +27,18 @@ class FavoritesTest extends TestCase
         $this->post('replies/'.$reply->id.'/favorites');
         //It should be recorded in the database.
         $this->assertCount(1, $reply->favorites);
+    }
+
+    /** @test */
+    public function an_authenticated_user_can_unfavorite_a_reply()
+    {
+        $this->signIn();
+        $reply = create('App\Reply');
+        $reply->favorite();
+
+        $this->delete('replies/'.$reply->id.'/favorites');
+
+        $this->assertCount(0, $reply->favorites);
     }
 
     /** @test */
