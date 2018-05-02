@@ -44,13 +44,7 @@
             <div class="level">
 
                 <button class="btn btn-dark btn-xs mr-1" v-on:click="editing = true">Edit</button>
-
-                <form method="POST" action="/replies/{{$reply->id}}">
-                    {{csrf_field()}}
-                    {{method_field('DELETE')}}
-
-                    <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                </form>
+                <button class="btn btn-xs btn-danger mr-1" v-on:click="destroy">Delete</button>
 
             </div>
 
