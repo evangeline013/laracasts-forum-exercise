@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Thread;
+use App\Reply;
 
 class RepliesController extends Controller
 {
@@ -22,5 +23,27 @@ class RepliesController extends Controller
         ]);
 
         return back()->with('flash', 'Your reply has been posted!');
+    }
+
+    public function destroy(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+
+        $reply->delete();
+
+        if (request()->expectsJson()) {
+            return response(['status' => 'Reply deleted']);
+        }
+
+        return back();
+    }
+
+    public function update(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+
+        $this->validate(request(), ['body' => 'required']);
+
+        $reply->update(['body' => request('body')]);
     }
 }

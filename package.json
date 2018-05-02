@@ -20,6 +20,9 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "@fortawesome/fontawesome": "^1.1.6",
+        "@fortawesome/vue-fontawesome": "0.0.22",
+        "ajv": "^6.4.0",
         "npm": "^5.8.0"
     }
 }
